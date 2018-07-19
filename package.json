@@ -1,0 +1,36 @@
+{
+  "name": "cordova-plugin-emas",
+  "version": "1.0.0",
+  "description": "Cordova Emas Plugin,use Aliyun SDK",
+  "cordova": {
+    "id": "cordova-plugin-emas",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gjgj821/cordova-plugin-emas"
+  },
+  "keywords": [
+    "cordova",
+    "aliyun",
+    "push",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "engines": [
+    {
+      "name": "cordova-android",
+      "version": ">=6.3.0"
+    }
+  ],
+  "author": "gjgj821",
+  "license": "MIT License",
+  "bugs": {
+    "url": "https://github.com/tubugs/cordova-plugin-emas/issues"
+  },
+  "homepage": "https://github.com/tubugs/cordova-plugin-emas#readme"
+}

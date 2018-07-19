@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ -->
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="cordova-plugin-emas"
+    version="1.0.9">
+    <name>emas</name>
+    <description>Emas Plugin</description>
+    <keywords>push,crash,analyze</keywords>
+
+    <license>MIT</license>
+
+
+  <js-module src="www/emas.js" name="Emas">
+    <clobbers target="Emas"/>
+  </js-module>
+  <engines>
+    <engine name="cordova" version=">=7.1.0"/>
+    <engine name="cordova-ios" version=">=4.5.0"/>
+    <engine name="cordova-android" version=">=6.4.00"/>
+  </engines>
+
+      <preference name="EmasAppKey" default="" />
+      <preference name="EmasAppSecret" default="" />
+      <preference name="EmasPackageName" default="" />
+
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Emas" >
+                <param name="ios-package" value="Emas"/>
+			          <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="config">
+	        <dict>
+            <key>emas.appKey</key>
+            <string>$EmasAppKey</string>
+            <key>emas.appSecret</key>
+            <string>$EmasAppSecret</string>
+            <key>emas.bundleId</key>
+            <string>$EmasPackageName</string>
+          </dict>
+        </config-file>
+        <config-file target="*-Info.plist" parent="server">
+          <dict>
+            <key>cps_service</key>
+            <dict>
+              <key>status</key>
+              <integer>1</integer>
+              <key>version</key>
+              <string>1.9.8</string>
+            </dict>
+            <key>feedback_service</key>
+            <dict>
+              <key>status</key>
+              <integer>1</integer>
+              <key>version</key>
+              <string>3.3.3</string>
+            </dict>
+            <key>man_service</key>
+            <dict>
+              <key>status</key>
+              <integer>1</integer>
+              <key>version</key>
+              <string>1.0.13</string>
+            </dict>
+          </dict>
+        </config-file>
+        
+        <source-file src="src/ios/lib/AlicloudMobileAnalitics.framework" framework="true"/>
+        <source-file src="src/ios/lib/AlicloudUtils.framework" framework="true"/>
+        <source-file src="src/ios/lib/BCConnectionBundle.framework" framework="true"/>
+        <source-file src="src/ios/lib/BchybridWebViewFMWK.framework" framework="true"/>
+        <source-file src="src/ios/lib/CloudPushSDK.framework" framework="true"/>
+        <source-file src="src/ios/lib/CrashReporter.framework" framework="true"/>
+        <source-file src="src/ios/lib/UTDID.framework" framework="true"/>
+        <source-file src="src/ios/lib/UTMini.framework" framework="true"/>
+        <source-file src="src/ios/lib/YWFeedbackBundle.framework" framework="true"/>
+        <source-file src="src/ios/lib/YWFeedbackFMWK.framework" framework="true"/>
+
+        <header-file src="ios/src/Emas.h" target-dir="src"/>
+        <source-file src="ios/src/Emas.m" target-dir="src" />
+        <header-file src="ios/src/EmasManager.h" target-dir="src"/>
+        <source-file src="ios/src/EmasManager.m" target-dir="src" />
+    </platform>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Emas" >
+                <param name="android-package" value="gj.cordova.plugin.Emas"/>
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <!-- 个推SDK权限配置开始 -->
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.VIBRATE" />
+            <uses-permission android:name="android.permission.GET_TASKS" />
+            
+            <!-- 支持个推3.0 电子围栏功能 -->
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <!-- 浮动通知权限 -->
+            <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+            <!-- 自定义权限 -->
+            <uses-permission android:name="getui.permission.GetuiService.$PACKAGE_NAME" />
+            <permission
+                android:name="getui.permission.GetuiService.$PACKAGE_NAME"
+                android:protectionLevel="normal" >
+            </permission><!--替换为第三方应用的包名-->
+            <!-- 个推SDK权限配置结束 -->
+        </config-file>
+
+        <source-file src="android/lib/alicloud-andrid-beacon-1.0.1.jar" target-dir="libs"/>
+
+        <source-file src="android/lib/alicloud-android-feedback-3.1.6.arr" target-dir="libs" />
+        <source-file src="android/lib/alicloud-android-man-1.2.4.aar" target-dir="libs" />
+        <source-file src="android/lib/alicloud-android-push-3.1.3.arr" target-dir="libs" />
+        <source-file src="android/lib/alicloud-android-ut-5.1.0.jar" target-dir="libs" />
+        <source-file src="android/lib/alicloud-android-utils-1.1.3.jar" target-dir="libs" />
+        <source-file src="android/lib/utdid4all-1.1.5.3_proguard.jar" target-dir="libs" />
+        <source-file src="android/lib/x86/libMotu.so" target-dir="libs/x86" />
+        <source-file src="android/lib/armeabi/libMotu.so" target-dir="libs/armeabi" />
+        <source-file src="android/lib/armeabi-v7a/libMotu.so" target-dir="libs/armeabi-v7a" />
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+          <uses-permission android:name="android.permission.CAMERA" android:required="false" />
+          <uses-feature android:name="android.hardware.camera" android:required="false" />
+          <uses-feature android:name="android.hardware.camera.front" android:required="false" />
+        </config-file>
+        <source-file src="src/android/src/Emas.java" target-dir="src/gj/cordova/plugin"/>
+        <!-- <framework src="src/android/emas.gradle" custom="true" type="gradleReference"/> -->
+    </platform>
+
+    <info>
+        Emas plugin installation succeeded.
+    </info>
+
+</plugin>
