@@ -37,11 +37,11 @@
     <engine name="cordova-android" version=">=6.4.00"/>
   </engines>
 
+    <platform name="ios">
       <preference name="EmasAppKey" default="" />
       <preference name="EmasAppSecret" default="" />
       <preference name="EmasPackageName" default="" />
 
-    <platform name="ios">
         <config-file target="config.xml" parent="/*">
             <feature name="Emas" >
                 <param name="ios-package" value="Emas"/>
@@ -103,6 +103,10 @@
     </platform>
 
     <platform name="android">
+      <preference name="EmasAppKey" default="" />
+      <preference name="EmasAppSecret" default="" />
+      <preference name="EmasPackageName" default="" />
+
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Emas" >
                 <param name="android-package" value="gj.cordova.plugin.Emas"/>
